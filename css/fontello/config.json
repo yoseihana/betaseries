@@ -1,0 +1,90 @@
+{
+  "name": "",
+  "glyphs": [
+    {
+      "search": [
+        "info"
+      ],
+      "code": 59642,
+      "uid": "ccd52a22af21fbaa98a9c85fb50fca6b",
+      "file": "info",
+      "css": "info-1",
+      "orig_css": "info",
+      "orig_code": 59642,
+      "src": "iconic",
+      "from": 8505
+    },
+    {
+      "search": [
+        "home"
+      ],
+      "code": 59643,
+      "uid": "d6944e1d9af302093d43b299bbecbbbe02",
+      "file": "home",
+      "css": "home-2",
+      "orig_css": "home",
+      "orig_code": 59643,
+      "src": "iconic",
+      "from": 8962
+    },
+    {
+      "search": [
+        "heart"
+      ],
+      "code": 59803,
+      "uid": "0eabe5f8d71cc838484ff39436426d2d",
+      "css": "heart-5",
+      "orig_css": "heart",
+      "orig_code": 59803,
+      "src": "entypo",
+      "from": 9829
+    },
+    {
+      "search": [
+        "close",
+        "cancel",
+        "reject"
+      ],
+      "code": 10062,
+      "uid": "bf45c39702763f1803b550c36a0ceb12",
+      "css": "cancel-squared",
+      "orig_css": "cancel-squared",
+      "orig_code": 10062,
+      "src": "entypo",
+      "from": 10062
+    },
+    {
+      "search": [
+        "load",
+        "progress",
+        "wait"
+      ],
+      "code": 59835,
+      "meta": {
+        "email": "berbentseva_angela@yahoo.com",
+        "author": "Angela Berbentseva, specially for fontello"
+      },
+      "uid": "5d2d07f112b8de19f2c0dbfec3e42c05",
+      "css-ext": "animate-spin",
+      "css": "spin5",
+      "orig_css": "spin5",
+      "orig_code": 59835,
+      "src": "fontelico",
+      "from": 59448
+    },
+    {
+      "search": [
+        "image",
+        "picture",
+        "photo"
+      ],
+      "code": 59809,
+      "uid": "3def559c3c39b8500882e02892b7daa8",
+      "css": "picture-3",
+      "orig_css": "picture",
+      "orig_code": 59809,
+      "src": "entypo",
+      "from": 127748
+    }
+  ]
+}

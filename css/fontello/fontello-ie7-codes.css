@@ -1,0 +1,7 @@
+
+.icon-info-1 { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe8fa;&nbsp;'); }
+.icon-home-2 { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe8fb;&nbsp;'); }
+.icon-heart-5 { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe99b;&nbsp;'); }
+.icon-cancel-squared { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#x274e;&nbsp;'); }
+.icon-spin5 { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe9bb;&nbsp;'); }
+.icon-picture-3 { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe9a1;&nbsp;'); }
