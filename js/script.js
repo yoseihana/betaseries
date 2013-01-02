@@ -33,7 +33,7 @@
                 }
 
                 $("#addFavorit").on("click", function(){addSerie(serie)});
-                //$("#mySerie").on("click", mySeries);
+
             }
         }))
 
@@ -47,22 +47,20 @@
         var monobjet = serie;
         var monobjet_json = JSON.stringify(monobjet);
         sessionStorage.setItem("objet", monobjet_json);
+        mySeries();
+
 
     }
 
     var mySeries = function(){
 
-        console.log("ok");
         var monobjet_json = sessionStorage.getItem("objet");
         var monobjet = JSON.parse(monobjet_json);
-// Affichage dans la console
-        //console.log(monobjet);
-        if($('body').attr("id") == "mesSeries"){
-            console.log(monobjet);
-        }
-        $('section').append("<p>Test</p>");
 
+        showMySeries(monobjet);
 
+       $("#showMySeries").append("<li>" + monobjet.description + "</li>");
+        console.log(monobjet.description);
     }
 
 //Affiche le listing de mes séries
@@ -140,7 +138,7 @@
             }
         });
 
-        $("")
+        $("#mySeries").click(function(e){mySeries()});
 
     });
 
