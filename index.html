@@ -31,6 +31,9 @@
                     <li>
                         <a href="javascript:void(0);" rel="myFavorit" data-toggle="tab">Mes séries</a>
                     </li>
+                    <li>
+                        <a href="javascript:void(0);" rel="planning" data-toggle="tab">Planning</a>
+                    </li>
                 </ul>
 
                 <div class="tab-content">
@@ -39,17 +42,18 @@
                         <input type="search" name="Recherche" placeholder="Série à rechercher" id="searchSerie"/>
                         <section class="searchResult">
                             <h2>Résultat de recherches</h2>
+                            <div class="searchError"></div>
                             <ul class="searchList"></ul>
                         </section>
-                        <section class="searchError"></section>
+
                     </div>
 
                     <!-- DESCRIPTION -->
                     <div class="tab-pane" id="serieDescription">
-                        <h2 class="serieDescriptionTitle"></h2>
+                        <h2>A propos de cette série</h2>
                         <section>
                             <img src="" alt="" title="" />
-                            <h3>A propos de cette série</h3>
+                            <h3 class="serieDescriptionTitle"></h3>
                             <p class="description"></p>
                             <h3>Genre</h3>
                             <p class="gender"></p>
@@ -60,37 +64,29 @@
                             <h3>Saisons</h3>
                             <ol class="seasons"></ol>
                             <footer>
-                                <a href="javascript:void(0);" rel="myFavorit" class="addFavorit"><button>Ajouter cette série à mes favoris</button></a>
+                               <button class="addFavorit">Ajouter cette série à mes favoris</button>
                             </footer>
                         </section>
                     </div>
-
 
                     <!-- FAVORIS -->
                     <div class="tab-pane" id="myFavorit">
                         <h2>Mes séries</h2>
                         <section class="favoritSeries">
-                            <ul></ul>
+                            <ul class="favoritList"></ul>
                         </section>
                     </div>
 
-                </div>
-                <!--<input type="search" name="Recherche" placeholder="Série à rechercher" id="searchSerie"/>
+                    <!-- FAVORIS -->
+                    <div class="tab-pane" id="planning">
+                        <h2>Planning</h2>
+                        <section class="planningSerie">
+                            <ul class="planningList"></ul>
+                        </section>
+                    </div>
 
-                <div class="searchResult">
-                    <h2>Résultat de recherches</h2>
-                    <ul class="searchList"></ul>
-                </div>
-                <div class="searchError">
 
                 </div>
-                <a href="./html/messeries.html" title="Vers la page de mes séries" class="mySeriesFavorit">
-                    <button>Mes séries</button>
-                </a>
-            </section>
-            <footer data-role="footer" role="content info">
-                <p>Crée par Annabelle Buffart</p>
-            </footer>-->
         </div>
     </body>
 </html>
