@@ -1,31 +1,36 @@
 (function ($) {
 
     //Définition des variable
-    var $oError, $oInputVal, $oSearchResult;
+    var $oError, $oInputVal, $oSearchResult, sOIKey = "abcdef0123456789";
 
     //Test le champ de recherche
     var searchTest = function (e) {
 
         $oSearchResult = $('.searchResult');
 
+        //Si appuie sur "Enter"
         if (e.which == 13) {
-
+            //Si il y a une valeur ds le champ
             if ($('input').val() !== "") {
-
+                //Si valeur < 2
                 if ($('input').val().length < 2) {
+                    //Remove ancien avertissement, ajout avertissement
                     $oSearchResult.find('p').remove();
                     $oSearchResult.find('li').remove();
                     $oSearchResult.find('div').append('<p>Il faut minimum 2 lettres pour avoir un résultat de recherche</p>');
                 }
                 else {
+                    //Remove avertissement et listing si + de 2 lettres
                     $oSearchResult.find('p').remove();
                     $oSearchResult.find('li').remove();
 
+                    //Fais la recherche de série
                     searchSerie();
                 }
 
             }
             else {
+                //Remove l'ancien message d'erreur et l'ancien listing + ajout message erreur
                 $oSearchResult.find('p').remove();
                 $oSearchResult.find('li').remove();
                 $oSearchResult.find('div').append('<p>Entrez le nom d\'une série pour la retrouvée dans le listing de BetaSerie</p>');
@@ -59,24 +64,27 @@
                         urlResult = searchResult[b].url;
                     }
 
-                    $searchList.find('a').on('click', listSerieClick)
+                    $searchList.find('a').on('click', listSerieClick);
                 }
             }
 
         });
     }
 
+
     //Déscription de la série après click dans le listing de recherche
-    var listSerieClick = function () {
+    var listSerieClick = function (e) {
+        $target = $(e.target);
 
         if ($('.searchList a').length) {
 
             var tabId = $(".searchList a").attr('rel');
-            var sUrlSerie = $(".searchList a").attr('class');
+            var sUrlSerie = $target.attr('class');
+
 
         } else if ($('.favoritList a').length) {
             var tabId = $(".favoritList a").attr('rel');
-            var sUrlSerie = $(".favoritList a").attr('class');
+            var sUrlSerie = $target.attr('class');
         }
 
         history.pushState({
@@ -88,7 +96,6 @@
         $("div#" + tabId).addClass('active');
 
         showSerie(sUrlSerie);
-
     };
 
     //Application pour jQuery mobile, intégration ds HTML
@@ -96,64 +103,97 @@
     var showSerie = function (sUrlSerie) {
 
         //  $(document).on("mobileinit", function () {
-        var sUrl = "http://api.betaseries.com/shows/display/" + sUrlSerie + ".json?key=bf7f369ce177";
+        var sUrl = 'http://api.betaseries.com/shows/display/' + sUrlSerie + '.json?key=bf7f369ce177';
+        var $serieTitle = $('.serieDescriptionTitle');
+        var $serieDescription = $('.description');
+        var $serieGender = $('.gender');
+        var $serieTiming = $('.timing');
+        var $serieStatus = $('.status');
 
-        $("#serieDescription .error").remove();
+
+        $('.descriptionError p').remove();
+        $('#serieDescription section').show();
+        $serieTitle.empty();
+        $serieDescription.empty();
+        $serieGender.empty();
+        $serieTiming.empty();
+        $serieStatus.empty();
 
         $(document).load($.ajax({
-            url:sUrl,
-            dataType:"jsonp",
-            success:function (data) {
-                var serie = data.root.show;
+                url:sUrl,
+                dataType:'jsonp',
+                success:function (data) {
+                    var serie = data.root.show;
 
-                $(".serieDescriptionTitle").append(serie.title);
-                $("img").attr("src", serie.banner);
-                $(".description").append(serie.description);
-                $(".gender").append(serie.genres);
-                $(".timing").append(serie.duration);
-                $(".status").append(serie.status);
+                    console.log(serie.genres);
 
-                //Boucle des seasons
-                for (x in serie.seasons) {
-                    var seasons = serie.seasons[x].number;
-                    var episodes = serie.seasons[x].episodes;
+                    $serieTitle.append(serie.title);
+                    $('img').attr('src', serie.banner);
+                    $serieDescription.append(serie.description);
+                    $serieGender.append(serie.genres);
+                    $serieTiming.append(serie.duration);
+                    $serieStatus.append(serie.status);
 
-                    $(".seasons").append("<li><p> Saisons: " + seasons + "</p><p>Nombre d'épisodes: " + episodes + "</p></li>");
+                    //Boucle des seasons
+                    for (x in serie.seasons) {
+                        var seasons = serie.seasons[x].number;
+                        var episodes = serie.seasons[x].episodes;
+
+                        $('.seasons').append('<li><p> Saisons: ' + seasons + '</p><p>Nombre d\'épisodes: ' + episodes + '</p></li>');
+                    }
+
+                    $('.addFavorit').on('click', function () {
+                        addSerie(serie);
+
+                    });
                 }
-
-                $(".addFavorit").on("click", function () {
-                    addSerie(serie);
-
-                });
             }
-        }))
+        ))
     };
 
-    //Ajout de la série dans le sessionsStorage
+    var genObjectItem = function () {
+        //ID commence par s_
+        var sOI = 's_', i;
+
+        //Nbre de lettres générées
+        for (i = 0; i < 8; i++) {
+            sOI += sOIKey.charAt(Math.floor(Math.random() * sOIKey.length));
+        }
+        ;
+
+        return sOI;
+    };
+
+//Ajout de la série dans le sessionsStorage
     var addSerie = function (serie) {
+
         var oSerieFav = serie;
         var oSerieFav_json = JSON.stringify(oSerieFav);
 
-        localStorage.setItem('objet', oSerieFav_json)
-
-        showMySeries();
+        localStorage.setItem(genObjectItem(), oSerieFav_json)
     }
 
-    //Affichage du sessionStorage
+//Affichage du sessionStorage
     var showMySeries = function () {
-        var oSerieFav_json = localStorage.getItem('objet');
-        var oSerieFav = JSON.parse(oSerieFav_json);
 
-        $('.favoritList').append('<li></li>');
-        $('.favoritList li').append('<h3><a href="javascript:void(0);" rel="serieDescription" class="' + oSerieFav.url + '">' + oSerieFav.title + '</a></h3>');
-        $('.favoritList li').append('<p>Etat de la série: ' + oSerieFav.status + '</p>');
-        var len = $.map(oSerieFav.seasons,function (n, i) {
-            return i;
-        }).length;
+        for (sKey in localStorage) {
 
-        $('.favoritList li').append('<p>Nombre de saisons: ' + len + '</p>');
+            if (localStorage.key(sKey)) {
+                //Retourne true si la clef existe
+                var oSerieFav_json = localStorage.getItem(sKey);
+                var oSerieFav = JSON.parse(oSerieFav_json);
 
-        $('h3').on('click', listSerieClick);
+                $('.favoritList').append('<li><h3><a href="javascript:void(0);" rel="serieDescription" class="' + oSerieFav.url + '">' + oSerieFav.title + '</a></h3></li>');
+                $('.favoritList li').append('<p>Etat de la série: ' + oSerieFav.status + '</p>');
+                var len = $.map(oSerieFav.seasons,function (n, i) {
+                    return i;
+                }).length;
+
+                $('.favoritList li').append('<p>Nombre de: ' + len + '</p>');
+
+                $('h3 a').on('click', listSerieClick);
+            }
+        }
 
     };
 
@@ -182,16 +222,16 @@
 
 //Affichage de l'onglet
     var switchTab = function (tabId) {
-        var $oSerieDescription = $("#serieDescription");
+        var $oSerieDescription = $('#serieDescription');
 
         $('li.active, div.tab-pane.active').removeClass('active');
         $('a[rel="' + tabId + '"]').parent().addClass('active');
-        $("div#" + tabId).addClass('active');
+        $('div#' + tabId).addClass('active');
 
         if (tabId == 'serieDescription') {
-            $("#serieDescription section").remove();
-            $("#serieDescription .error").remove()
-            $oSerieDescription.append('<p class="error">Il n\'y a pas de série sélectionnée. Faites d\'abord une recherche.</p>');
+            $('#serieDescription section').hide();
+            $('.descriptionError p').remove()
+            $('.descriptionError').append('<p>Il n\'y a pas de série sélectionnée. Faites d\'abord une recherche.</p>');
         }
 
         if (tabId == "myFavorit") {
@@ -206,27 +246,41 @@
     };
 
     var showPlanning = function () {
-        var sPlanningApi = "http://api.betaseries.com/planning/incoming.json?key=bf7f369ce177";
-        var oSerieFav_json = localStorage.getItem('objet');
-        var oSerieFav = JSON.parse(oSerieFav_json);
+        var sPlanningApi = "http://api.betaseries.com/planning/general.json?key=bf7f369ce177";
+
 
         $(document).load($.ajax({
             url:sPlanningApi,
             dataType:'jsonp',
             success:function (dataPlanning) {
+
                 var oPlanning = dataPlanning.root.planning;
+
                 for (c in oPlanning) {
-                    if (oPlanning[c].show == oSerieFav.title) {
-                        $('.planningList').append('<li></li>');
-                        $('.planningList li').append('<p>' + oPlanning[c].show + '</p>');
-                        $('.planningList li').append('<p>' + oPlanning[c].number + '</p>');
-                        $('.planningList li').append('<p>' + new Date(oPlanning[c].date) + '</p>');
-                    } else if (oSerieFav.status == 'Ended') {
-                        console.log("fini");
+                    for (sKey in localStorage) {
+
+                        if (localStorage.key(sKey)) {
+                            //Retourne true si la clef existe
+                            var oSerieFav_json = localStorage.getItem(sKey);
+                            var oSerieFav = JSON.parse(oSerieFav_json);
+
+                            if (oPlanning[c].show == oSerieFav.title) {
+
+                                var date = new Date();
+                                $('.planningList').append('<li><p>' + oPlanning[c].show + '</p></li>');
+                                $('.planningList li').append('<p>' + oPlanning[c].number + '</p>');
+                                $('.planningList li').append('<p>' + date.toDateString(oPlanning[c].date) + '</p>');
+                            } else {
+                                //TODO
+                                console.log("Aucune programmation");
+                            }
+                        }
+
                     }
                 }
             }
         }));
+
     }
 
 //Load de routine
