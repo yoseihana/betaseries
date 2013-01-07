@@ -1,3 +1,5 @@
+@charset "UTF-8";
+
 @font-face {
   font-family: 'fontello';
   src: url("../font/fontello.eot");
@@ -28,9 +30,9 @@
 /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
 }
 
-.icon-info-1:before { content: '\e8fa'; } /* '' */
-.icon-home-2:before { content: '\e8fb'; } /* '' */
-.icon-heart-5:before { content: '\e99b'; } /* '' */
-.icon-cancel-squared:before { content: '\274e'; } /* '❎' */
-.icon-spin5:before { content: '\e9bb'; } /* '' */
-.icon-picture-3:before { content: '\e9a1'; } /* '' */
+.icon-heart-empty:before { content: '\2661'; } /* '♡' */
+.icon-check:before { content: '\2713'; } /* '✓' */
+.icon-cancel:before { content: '\2715'; } /* '✕' */
+.icon-video-1:before { content: '\e800'; } /* '' */
+.icon-calendar:before { content: '📅'; } /* '\1f4c5' */
+.icon-search:before { content: '🔍'; } /* '\1f50d' */

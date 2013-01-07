@@ -1,93 +1,112 @@
 <!DOCTYPE HTML>
 <html lang="fr_BE">
-    <head>
-        <meta charset="UTF-8"/>
-        <title>API Betaseries</title>
+<head>
+    <meta charset="UTF-8"/>
+    <title>API Betaseries</title>
 
-        <!--<link rel="stylesheet" href="./css/style.css"/>-->
-        <link rel="stylesheet" href="./css/styles.css" />
-
-        <script src="js/jquery.js"></script>
-        <script src="js/script.js"></script>
-        <script src="js/jmobile.js"></script>
-
-        <!--[if lt IE 9]>
-        <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-        <![endif]-->
-    </head>
-    <body data-role="page" id="page" class="pageHome">
-        <div id="wrapper">
-            <header data-role="header" data-theme="f" class="page-header">
-                <h1><a href="#" title="Retour à la page d'accueil">Bienvenu sur BetaSerie</a></h1>
-            </header>
-            <section data-role="content" id="content" class="tabbable">
-                <ul class="nav nav-tabs">
-                    <li class="active">
-                        <a href="javascript:void(0);" rel="search" data-toggle="tab">Recherches</a>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0);" rel="serieDescription" data-toggle="tab">Description</a>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0);" rel="myFavorit" data-toggle="tab">Mes séries</a>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0);" rel="planning" data-toggle="tab">Planning</a>
-                    </li>
-                </ul>
-
-                <div class="tab-content">
-                    <!-- RECHERCHE -->
-                    <div class="tab-pane active" id="search">
-                        <input type="search" name="Recherche" placeholder="Série à rechercher" id="searchSerie"/>
-                        <section class="searchResult">
-                            <h2>Résultat de recherches</h2>
-                            <div class="searchError"></div>
-                            <ul class="searchList"></ul>
-                        </section>
-
-                    </div>
-
-                    <!-- DESCRIPTION -->
-                    <div class="tab-pane" id="serieDescription">
-                        <h2>A propos de cette série</h2>
-                        <section>
-                            <img src="" alt="" title="" />
-                            <h3 class="serieDescriptionTitle"></h3>
-                            <p class="description"></p>
-                            <h3>Genre</h3>
-                            <p class="gender"></p>
-                            <h3>Durée</h3>
-                            <p class="timing"></p>
-                            <h3>Status</h3>
-                            <p class="status"></p>
-                            <h3>Saisons</h3>
-                            <ol class="seasons"></ol>
-                            <footer>
-                                <button class="addFavorit">Ajouter cette série à mes favoris</button>
-                            </footer>
-                        </section>
-                        <div class="descriptionError"></div>
-                    </div>
-
-                    <!-- FAVORIS -->
-                    <div class="tab-pane" id="myFavorit">
-                        <h2>Mes séries</h2>
-                        <section class="favoritSeries">
-                            <ul class="favoritList"></ul>
-                        </section>
-                    </div>
-
-                    <!-- FAVORIS -->
-                    <div class="tab-pane" id="planning">
-                        <h2>Planning</h2>
-                        <section class="planningSerie">
-                            <ul class="planningList"></ul>
-                        </section>
-                    </div>
+    <!--<link rel="stylesheet" href="./css/style.css"/>-->
+    <link rel="stylesheet" href="./css/styles.css"/>
+    <link rel="stylesheet" type="text/css" href="./css/style.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="./css/animation.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="./css/fontello-codes.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="./css/fontello-embedded.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="./css/fontello-ie7-codes.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="./css/fontello-ie7.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="./css/fontello.css" media="screen" />
 
 
-                </div>
+    <script src="js/jquery.js"></script>
+    <script src="js/script.js"></script>
+    <!--<script src="js/jmobile.js"></script>-->
+
+    <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body>
+<div class="content">
+    <header>
+        <h1><a href="#" title="Retour à la page d'accueil">Betaseries</a></h1>
+        <nav>
+            <ul class="nav">
+                <li class="active">
+                    <a href="javascript:void(0);" class="icon-check" rel="search" data-toggle="tab"></a>
+                </li>
+                <li>
+                    <a href="javascript:void(0);" rel="serieDescription" class="icon-video-1" data-toggle="tab"></a>
+                </li>
+                <li>
+                    <a href="javascript:void(0);" rel="myFavorit" data-toggle="tab" class="icon-heart-empty"></a>
+                </li>
+                <li>
+                    <a href="javascript:void(0);" rel="planning" class="icon-calendar" data-toggle="tab"></a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <section>
+        <!-- RECHERCHE -->
+        <div class="active" id="search">
+            <h2>Recherche de série</h2>
+            <input type="search" name="Recherche" placeholder="Série à rechercher" id="searchSerie"/>
+            <section class="searchResult">
+                <h3>Résultat de recherches</h3>
+
+                <div class="searchError"></div>
+                <ul class="searchList"></ul>
+            </section>
+
         </div>
-    </body>
+
+        <!-- DESCRIPTION -->
+        <div id="serieDescription">
+            <h2>A propos de cette série</h2>
+            <section>
+                <img src="" alt="" title=""/>
+
+                <h3 class="serieDescriptionTitle"></h3>
+
+                <p class="description"></p>
+
+                <h3>Genre</h3>
+
+                <p class="gender"></p>
+
+                <h3>Durée</h3>
+
+                <p class="timing"></p>
+
+                <h3>Status</h3>
+
+                <p class="status"></p>
+
+                <h3>Saisons</h3>
+                <ol class="seasons"></ol>
+                <footer>
+                    <button class="addFavorit">Ajouter cette série à mes favoris</button>
+                </footer>
+            </section>
+            <div class="descriptionError"></div>
+        </div>
+
+        <!-- FAVORIS -->
+        <div id="myFavorit">
+            <h2>Mes séries</h2>
+            <section class="favoritSeries">
+                <ul class="favoritList"></ul>
+            </section>
+            <div class="favoritError"></div>
+        </div>
+
+        <!-- FAVORIS -->
+        <div id="planning">
+            <h2>Planning</h2>
+            <section class="planningSerie">
+                <ul class="planningList"></ul>
+            </section>
+            <div class="planningError"></div>
+        </div>
+    </section>
+</div>
+</body>
 </html>

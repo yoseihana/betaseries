@@ -1,0 +1,86 @@
+{
+  "name": "",
+  "glyphs": [
+    {
+      "search": [
+        "heart"
+      ],
+      "code": 9825,
+      "from": 9825,
+      "uid": "f3dc2d6d8fe9cf9ebff84dc260888cdf",
+      "css": "heart-empty",
+      "orig_css": "heart-empty",
+      "orig_code": 9825,
+      "src": "fontawesome"
+    },
+    {
+      "search": [
+        "ok",
+        true,
+        "check",
+        "mark"
+      ],
+      "code": 10003,
+      "uid": "14017aae737730faeda4a6fd8fb3a5f0",
+      "css": "check",
+      "orig_css": "check",
+      "orig_code": 10003,
+      "src": "entypo",
+      "from": 10003
+    },
+    {
+      "search": [
+        "close",
+        "cancel",
+        "reject"
+      ],
+      "code": 10005,
+      "from": 10005,
+      "uid": "c709da589c923ba3c2ad48d9fc563e93",
+      "css": "cancel",
+      "orig_css": "cancel",
+      "orig_code": 10005,
+      "src": "entypo"
+    },
+    {
+      "search": [
+        "movie",
+        "video",
+        "film"
+      ],
+      "code": 59392,
+      "from": 127916,
+      "uid": "872d9516df93eb6b776cc4d94bd97dac",
+      "css": "video-1",
+      "orig_css": "video",
+      "orig_code": 59392,
+      "src": "fontawesome"
+    },
+    {
+      "search": [
+        "calendar",
+        "date"
+      ],
+      "code": 128197,
+      "from": 128197,
+      "uid": "531bc468eecbb8867d822f1c11f1e039",
+      "css": "calendar",
+      "orig_css": "calendar",
+      "orig_code": 128197,
+      "src": "fontawesome"
+    },
+    {
+      "search": [
+        "search",
+        "find"
+      ],
+      "code": 128269,
+      "from": 128269,
+      "uid": "9dd9e835aebe1060ba7190ad2b2ed951",
+      "css": "search",
+      "orig_css": "search",
+      "orig_code": 128269,
+      "src": "fontawesome"
+    }
+  ]
+}

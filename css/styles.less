@@ -1,0 +1,161 @@
+/* Import GRID */
+@import 'grid.less';
+
+@columns: 12;
+@column-width: 60;
+@gutter-width: 20;
+@total-width: 100%;
+
+/* FONT */
+@font-face {
+  font-family: 'ArchitectsDaughterRegular';
+  src: url('../font/ArchitectsDaughter-webfont.eot');
+  src: url('../font/ArchitectsDaughter-webfont.eot?#iefix') format('embedded-opentype'), url('../font/ArchitectsDaughter-webfont.woff') format('woff'), url('../font/ArchitectsDaughter-webfont.ttf') format('truetype'), url('../font/ArchitectsDaughter-webfont.svg#ArchitectsDaughterRegular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@architectD: 'ArchitectsDaughterRegular';
+
+@font-face {
+  font-family: 'ExoRegular';
+  src: url('../font/Exo-Regular-webfont.eot');
+  src: url('../font/Exo-Regular-webfont.eot?#iefix') format('embedded-opentype'), url('../font/Exo-Regular-webfont.woff') format('woff'), url('../font/Exo-Regular-webfont.ttf') format('truetype'), url('../font/Exo-Regular-webfont.svg#ExoRegular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+@exoR: 'ExoRegular';
+
+/* COLOR */
+@grey: #736761;
+@green: #5D917D;
+@beige: #E6D4A7;
+
+/* SHADOW */
+@mozShadow: 5px 5px 10px 0px #E6D4A7;
+@webShadow: 5px 5px 10px 0px #E6D4A7;
+@oShadow: 5px 5px 10px 0px #E6D4A7;
+@boxShadow: 5px 5px 10px 0px #E6D4A7;
+@filterShadow:progid:DXImageTransform.Microsoft.Shadow(color=#E6D4A7, Direction=134, Strength=10);
+
+/************************************************
+/* RESTE MEYER
+************************************************/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-weight: inherit;
+  font-style: inherit;
+  font-size: 100%;
+  font-family: inherit;
+  vertical-align: baseline;
+}
+
+/* remember to define focus styles! */
+:focus {
+  outline: 0;
+}
+
+body {
+  line-height: 1;
+  color: black;
+  background: white;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+/* tables still need 'cellspacing="0"' in the markup */
+table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+caption, th, td {
+  text-align: left;
+  font-weight: normal;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: "";
+}
+
+blockquote, q {
+  quotes: "" "";
+}
+
+/************************************************
+/* FIN RESTE MEYER
+************************************************/
+
+html {
+  background: silver url('../img/ecailles.png') top left repeat;
+}
+
+body {
+  font-size: 16px;
+  .column(12);
+  background: transparent;
+  font-family: @exoR;
+}
+
+header{
+  background-color: @green;
+  border-bottom: 1px solid white;
+}
+
+h1{
+  font-size: 2em;
+  text-align: center;
+}
+
+nav{
+  display: inline-block;
+  width: 100%;
+}
+
+nav li:first-child a{
+  border-left: none;
+}
+
+nav a{
+  color: white;
+  text-decoration: none;
+  width: 82px;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  display: inline-block;
+  border-left: 1px @grey solid;
+}
+
+nav li{
+  .column(3);
+  text-align: center;
+}
+
+h1 a {
+  font-family: @architectD;
+  text-decoration: none;
+  color: white;
+}
+
+section h2{
+  background-color: white;
+ background-image: url('../img/border.png');
+  height: 35px;
+}
+
+input{
+  width: 100%;
+}

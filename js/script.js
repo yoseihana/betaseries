@@ -27,7 +27,6 @@
                     //Fais la recherche de série
                     searchSerie();
                 }
-
             }
             else {
                 //Remove l'ancien message d'erreur et l'ancien listing + ajout message erreur
@@ -52,18 +51,21 @@
                 var rechercheSection = $searchList
                 var searchResult = dataSearch.root.shows;
 
+                //Vérifie si il y a un résultat pour la recherche
                 if (searchResult.length < 1) {
                     $oSearchResult.find('p').remove();
                     $oSearchResult.find('li').remove();
                     $oSearchResult.find('div').append('<p>Il n\'y a pas de résultat pour cette recherche.</p>');
 
-                } else {
-
+                }
+                else {
+                    //Ajout du listing de recherche
                     for (b in searchResult) {
                         rechercheSection.append('<li><a href="javascript:void(0);" rel="serieDescription" class="' + searchResult[b].url + '">' + searchResult[b].title + '</a></li>');
                         urlResult = searchResult[b].url;
                     }
 
+                    //Affiche l'onglet de description de série
                     $searchList.find('a').on('click', listSerieClick);
                 }
             }
@@ -71,22 +73,22 @@
         });
     }
 
-
     //Déscription de la série après click dans le listing de recherche
     var listSerieClick = function (e) {
         $target = $(e.target);
 
+        //Ajout de la class active
         if ($('.searchList a').length) {
-
             var tabId = $(".searchList a").attr('rel');
             var sUrlSerie = $target.attr('class');
 
-
-        } else if ($('.favoritList a').length) {
+        }
+        else if ($('.favoritList a').length) {
             var tabId = $(".favoritList a").attr('rel');
             var sUrlSerie = $target.attr('class');
         }
 
+        //Affiche le bon div
         history.pushState({
             id:tabId
         }, $('div#' + tabId).find('h2').text(), tabId + '.html');
@@ -98,19 +100,19 @@
         showSerie(sUrlSerie);
     };
 
-    //Application pour jQuery mobile, intégration ds HTML
     //Affichage de la série
     var showSerie = function (sUrlSerie) {
 
         //  $(document).on("mobileinit", function () {
         var sUrl = 'http://api.betaseries.com/shows/display/' + sUrlSerie + '.json?key=bf7f369ce177';
         var $serieTitle = $('.serieDescriptionTitle');
+        var $serieImg = $('img');
         var $serieDescription = $('.description');
         var $serieGender = $('.gender');
         var $serieTiming = $('.timing');
         var $serieStatus = $('.status');
 
-
+        //Enlève les anciens éléments
         $('.descriptionError p').remove();
         $('#serieDescription section').show();
         $serieTitle.empty();
@@ -125,10 +127,16 @@
                 success:function (data) {
                     var serie = data.root.show;
 
-                    console.log(serie.genres);
-
                     $serieTitle.append(serie.title);
-                    $('img').attr('src', serie.banner);
+
+                    //Vérifie si une img existe
+                    if (serie.banner) {
+                        $serieImg.attr('src', serie.banner);
+                    }
+                    else {
+                        $serieImg.attr('src', 'img/no-pre.png')
+                    }
+
                     $serieDescription.append(serie.description);
                     $serieGender.append(serie.genres);
                     $serieTiming.append(serie.duration);
@@ -138,72 +146,97 @@
                     for (x in serie.seasons) {
                         var seasons = serie.seasons[x].number;
                         var episodes = serie.seasons[x].episodes;
+                        $('.seasons').append('<li>Saisons: ' + seasons + '. Nombre d\'épisodes: ' + episodes + '.<ol class="'+seasons+'"></ol></li>');
 
-                        $('.seasons').append('<li><p> Saisons: ' + seasons + '</p><p>Nombre d\'épisodes: ' + episodes + '</p></li>');
+
+
+                        for(var x = 0; x<episodes; ++x){
+                            urlEpisode = 'http://api.betaseries.com/shows/episodes/'+serie.url+'.json?season=1&episode=1&summary=1?key=bf7f369ce177'
+
+                            $.ajax({
+                                url: urlEpisode,
+                                dataType: 'jsonp',
+                                success: function(dataEpisode){
+
+                                    $('ol .'+seasons).append('<li>'+dataEpisode+'</li>');
+                                }
+                            });
+
+                        }
+
                     }
+                    /* $('.addFavorit').on('click', function () {
+                     addSerie(serie);
 
-                    $('.addFavorit').on('click', function () {
-                        addSerie(serie);
+                     });*/
+                    //Appel la fct pour le localStorage
+                    var show = null;
+                    var titre = "fringe";
+                    $('.addFavorit').on('click', function (e) {
+                        getShow(serie, useLocalStorage);
+                    })
 
-                    });
                 }
             }
         ))
     };
 
-    var genObjectItem = function () {
-        //ID commence par s_
-        var sOI = 's_', i;
-
-        //Nbre de lettres générées
-        for (i = 0; i < 8; i++) {
-            sOI += sOIKey.charAt(Math.floor(Math.random() * sOIKey.length));
-        }
-        ;
-
-        return sOI;
+    //Ajout de la série dans localStorage en JSON
+    var setJsonItem = function (key, json) {
+        return localStorage.setItem(key, JSON.stringify(json));
     };
 
-//Ajout de la série dans le sessionsStorage
-    var addSerie = function (serie) {
+    //Retourne la/les série(s) du localStorage sans JSON
+    var getJsonItem = function (key) {
+        return JSON.parse(localStorage.getItem(key));
+    };
 
-        var oSerieFav = serie;
-        var oSerieFav_json = JSON.stringify(oSerieFav);
+    //
+    var getShow = function (serie, callback) {
+        callback(serie);
+    };
 
-        localStorage.setItem(genObjectItem(), oSerieFav_json)
+    //PLace la série dans le listing
+    var useLocalStorage = function (e) {
+        show = e
+        // console.log(JSON.stringify(show));
+
+        var favs = [];
+        favs[favs.length] = show;
+
+        setJsonItem('favs_s', favs);
+        //console.log("From localStorage: " + getJsonItem('favs_s'));
+        //console.log(getJsonItem('favs_s'))
+
+        //var favs2 = JSON.stringify(getJsonItem('fav_s'));
+        //console.log(favs2);
     }
 
-//Affichage du sessionStorage
+    //Affichage du sessionStorage
     var showMySeries = function () {
+        var myFav = getJsonItem('favs_s');
 
-        for (sKey in localStorage) {
+        //@TODO: boucle
 
-            if (localStorage.key(sKey)) {
-                //Retourne true si la clef existe
-                var oSerieFav_json = localStorage.getItem(sKey);
-                var oSerieFav = JSON.parse(oSerieFav_json);
+        //Affiche les infos de ma séries favorite
+        $('.favoritList').append('<li><h3><a href="javascript:void(0);" rel="serieDescription" class="' + myFav[0].url + '">' + myFav[0].title + '</a></h3></li>');
+        $('.favoritList li').append('<p>Etat de la série: ' + myFav[0].status + '</p>');
+        var len = $.map(myFav[0].seasons,function (n, i) {
+            return i;
+        }).length;
 
-                $('.favoritList').append('<li><h3><a href="javascript:void(0);" rel="serieDescription" class="' + oSerieFav.url + '">' + oSerieFav.title + '</a></h3></li>');
-                $('.favoritList li').append('<p>Etat de la série: ' + oSerieFav.status + '</p>');
-                var len = $.map(oSerieFav.seasons,function (n, i) {
-                    return i;
-                }).length;
-
-                $('.favoritList li').append('<p>Nombre de: ' + len + '</p>');
-
-                $('h3 a').on('click', listSerieClick);
-            }
-        }
+        $('.favoritList li').append('<p>Nombre de: ' + len + '</p>');
+        $('h3 a').on('click', listSerieClick);
 
     };
 
 //JSONP uniquement pr qd on est en local
 //  });
-
+    //Lorsqu'on clique sur les onglet du menu
     var menuClick = function (e) {
         e.preventDefault();
 
-        //Vérifie sur l'élément à la classe active, si oui, return et ne fait pas le reste
+        //Vérifie sur l'élément à la classe active
         if ($(this).parent().hasClass('active')) {
             return;
         }
@@ -211,43 +244,62 @@
         //Récupére l'attr rel
         var tabId = $(this).attr('rel');
 
-        //Méthode pushStat pour l'historique, contient un objet, accès à l'historique du navigateur
         history.pushState({
-            //récupère l'id via le rel
             id:tabId
         }, $('div#' + tabId).find('h3').text(), tabId + '.html');
 
         switchTab(tabId);
     };
 
-//Affichage de l'onglet
+    //Affichage de l'onglet
     var switchTab = function (tabId) {
         var $oSerieDescription = $('#serieDescription');
 
+        //Enlève les anciens éléments
         $('li.active, div.tab-pane.active').removeClass('active');
         $('a[rel="' + tabId + '"]').parent().addClass('active');
         $('div#' + tabId).addClass('active');
 
+        //Si sur la page description
         if (tabId == 'serieDescription') {
             $('#serieDescription section').hide();
             $('.descriptionError p').remove()
             $('.descriptionError').append('<p>Il n\'y a pas de série sélectionnée. Faites d\'abord une recherche.</p>');
         }
 
+        //Si sur la page des favoris
         if (tabId == "myFavorit") {
-            $('.favoritList li').remove();
-            showMySeries();
+
+            if (getJsonItem('favs_s') !== null) {
+                $('.favoritList li').remove();
+                $('.favoritError p').remove()
+                showMySeries();
+            }
+            else {
+                $('.favoritList li').remove();
+                $('.favoritError p').remove()
+                $('.favoritError').append('<p>Il n\'y a pas de série favorite.</p>');
+            }
         }
 
+        //Si sur la page du planning
         if (tabId == "planning") {
-            $('.planningList li').remove();
-            showPlanning();
+            if (getJsonItem('favs_s') !== null) {
+                $('.planningError').remove();
+                $('.planningList li').remove();
+                showPlanning();
+            }
+            else {
+                $('.planningList li').remove();
+                $('.planningError').append('<p>Il n\'y a aucune série favorite sélectionnée.</p>');
+            }
         }
     };
 
+    //Affichage du planning
     var showPlanning = function () {
         var sPlanningApi = "http://api.betaseries.com/planning/general.json?key=bf7f369ce177";
-
+        var myFavPlanning = getJsonItem('favs_s');
 
         $(document).load($.ajax({
             url:sPlanningApi,
@@ -257,33 +309,24 @@
                 var oPlanning = dataPlanning.root.planning;
 
                 for (c in oPlanning) {
-                    for (sKey in localStorage) {
+                    //Affichage du planning si le titre est dans mes favoris
+                    if (oPlanning[c].show == myFavPlanning[0].title) {
+                        var date = new Date();
 
-                        if (localStorage.key(sKey)) {
-                            //Retourne true si la clef existe
-                            var oSerieFav_json = localStorage.getItem(sKey);
-                            var oSerieFav = JSON.parse(oSerieFav_json);
-
-                            if (oPlanning[c].show == oSerieFav.title) {
-
-                                var date = new Date();
-                                $('.planningList').append('<li><p>' + oPlanning[c].show + '</p></li>');
-                                $('.planningList li').append('<p>' + oPlanning[c].number + '</p>');
-                                $('.planningList li').append('<p>' + date.toDateString(oPlanning[c].date) + '</p>');
-                            } else {
-                                //TODO
-                                console.log("Aucune programmation");
-                            }
-                        }
-
+                        $('.planningList').append('<li><p>' + oPlanning[c].show + '</p></li>');
+                        $('.planningList li').append('<p>' + oPlanning[c].number + '</p>');
+                        $('.planningList li').append('<p>' + date.toDateString(oPlanning[c].date) + '</p>');
+                    }
+                    else {
+                        //TODO
+                        console.log("Aucune programmation");
                     }
                 }
             }
         }));
+    };
 
-    }
-
-//Load de routine
+    //Load de routine
     $(function () {
 
         $(this).on('keypress', searchTest);
