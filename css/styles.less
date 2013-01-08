@@ -18,13 +18,28 @@
 @architectD: 'ArchitectsDaughterRegular';
 
 @font-face {
-  font-family: 'ExoRegular';
-  src: url('../font/Exo-Regular-webfont.eot');
-  src: url('../font/Exo-Regular-webfont.eot?#iefix') format('embedded-opentype'), url('../font/Exo-Regular-webfont.woff') format('woff'), url('../font/Exo-Regular-webfont.ttf') format('truetype'), url('../font/Exo-Regular-webfont.svg#ExoRegular') format('svg');
+  font-family: 'AmbleLight';
+  src: url('../font/Amble-Light-webfont.eot');
+  src: url('../font/Amble-Light-webfont.eot?#iefix') format('embedded-opentype'),
+  url('../font/Amble-Light-webfont.woff') format('woff'),
+  url('../font/Amble-Light-webfont.ttf') format('truetype'),
+  url('../font/Amble-Light-webfont.svg#AmbleLight') format('svg');
   font-weight: normal;
   font-style: normal;
 }
-@exoR: 'ExoRegular';
+@ambL: 'AmbleLight';
+
+@font-face {
+  font-family: 'AmbleBold';
+  src: url('../font/Amble-Bold-webfont.eot');
+  src: url('../font/Amble-Bold-webfont.eot?#iefix') format('embedded-opentype'),
+  url('../font/Amble-Bold-webfont.woff') format('woff'),
+  url('../font/Amble-Bold-webfont.ttf') format('truetype'),
+  url('../font/Amble-Bold-webfont.svg#AmbleBold') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+@ambB: AmbleBold;
 
 /* COLOR */
 @grey: #736761;
@@ -37,6 +52,11 @@
 @oShadow: 5px 5px 10px 0px #E6D4A7;
 @boxShadow: 5px 5px 10px 0px #E6D4A7;
 @filterShadow:progid:DXImageTransform.Microsoft.Shadow(color=#E6D4A7, Direction=134, Strength=10);
+
+/* RADIUS */
+@webRadius: 6px;
+@mozRadius: 6px;
+@borderRadius: 6px;
 
 /************************************************
 /* RESTE MEYER
@@ -99,63 +119,221 @@ blockquote, q {
 /* FIN RESTE MEYER
 ************************************************/
 
-html {
-  background: silver url('../img/ecailles.png') top left repeat;
+
+/*************** MEDIA 481px **************/
+
+@media only screen and (max-width: 768px){
+
+  /* General content */
+  html {
+    background: url('../img/debut_light.png') top left repeat;
+  }
+
+  body {
+    font-size: 16px;
+    background: transparent;
+    font-family: @ambL;
+    color: @grey;
+  }
+
+  header, footer{
+    background: @green url('../img/debutHeader.png') top left repeat;
+    border-bottom: 1px solid white;
+  }
+
+  .content{
+    .column(12);
+  }
+
+  p{
+    line-height: 1.25em;
+    margin-bottom: 1em;
+  }
+
+  /* Header */
+  h1{
+    font-size: 2em;
+    text-align: center;
+    padding: 0.5em 0;
+  }
+
+  nav{
+    display: inline-block;
+    width: 100%;
+  }
+
+  header nav{
+    margin-bottom: 0.5em;
+  }
+
+  nav li:first-child{
+    border-left: none;
+  }
+
+  nav li{
+    border-left: 1px @grey solid;
+  }
+
+  nav a{
+    color: white;
+    text-decoration: none;
+    width: 100%;
+    display: inline-block;
+    padding: 0.5em 0;
+    margin-left: 0.2em;
+  }
+
+  nav li{
+    .column(2.9);
+    text-align: center;
+  }
+
+  li.active a{
+    background: @grey url('../img/debutActive.png') top left repeat;
+    -webkit-border-radius: @webRadius;
+    -moz-border-radius: @mozRadius;
+    border-radius: @borderRadius;
+  }
+
+  h1 a {
+    font-family: @architectD;
+    text-decoration: none;
+    color: white;
+  }
+
+  /* Section content */
+  h2{
+    background-image: url('../img/border.png');
+    height: 40px;
+    font-family: @ambB;
+    padding-left: 0.85em;
+    margin-top: 0.5em;
+    color: @green;
+    font-size: 1.25em;
+  }
+
+  h3{
+    font-family: @ambB;
+    margin: 0.5em 0;
+  }
+
+  #search, #serieDescription, #myFavorit, #planning{
+    min-height: 250px;
+  }
+
+  /* Search */
+  input{
+    width: 100%;
+    margin: 1em 0;
+  }
+
+  .searchResult{
+    .column(12);
+  }
+
+  .searchList li, .favoritList li{
+    height: 50px;
+    border-top: 1px solid @grey;
+    border-bottom: 1px solid @grey;
+    background: url('../img/debutList.png') top left repeat;
+  }
+
+  .searchList a{
+    color: @green;
+    line-height: 1.5em;
+    text-decoration: none;
+    font-family: @ambB;
+    display: inline-block;
+    height: 40px;
+    width: 100%;
+    padding-left: 0.5em;
+    padding-top: 0.75em;
+  }
+
+  /*  Description série */
+  #serieDescription section{
+    .column(12);
+  }
+
+  img{
+    .column(12);
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+  }
+
+  #serieDescription footer{
+    background: none;
+  }
+
+  #serieDescription button{
+    width: 100%;
+    height: 50px;
+    margin: 0.5em 0;
+    font-size: 1.1em;
+    -webkit-border-radius: @webRadius;
+    -moz-border-radius: @mozRadius;
+    border-radius: @borderRadius;
+    background: @grey url('../img/debutActive.png') top left repeat;
+    color: white;
+
+  }
+
+  /* Séries favorites */
+  .favoritList a{
+    color: @green;
+    text-decoration: none;
+    font-family: @ambB;
+  }
+
+  .favoritList p{
+    color: @grey;
+    font-family: @ambL;
+  }
+
+  /* Planning */
+  .planningSerie li{
+    height: 100px;
+    border-top: 1px solid @grey;
+    border-bottom: 1px solid @grey;
+    background: url('../img/debutListBig.png') top left repeat;
+  }
+
+  .date{
+    color: @green;
+    font-family: @ambB;
+    margin-top: 0.5em;
+  }
+
+  .planningSerie p, .planningSerie h3{
+    margin-left: 1em;
+  }
+
+  .planningSerie p{
+    margin-bottom: 0;
+    line-height: 1.5em;
+  }
+
+  /* Footer */
+  footer{
+    clear: both;
+  }
+
+  footer p{
+    font-size: 0.75em;
+    color: white;
+    text-align: center;
+    margin: 0.5em 0;
+  }
+
+  footer nav{
+    margin-top: 1em;
+  }
 }
 
-body {
-  font-size: 16px;
-  .column(12);
-  background: transparent;
-  font-family: @exoR;
+/*************** MEDIA 482px - 768px **************/
+/*@media only screen and (max-width: 768px){
+body{
+  background-color: blue;
 }
 
-header{
-  background-color: @green;
-  border-bottom: 1px solid white;
-}
-
-h1{
-  font-size: 2em;
-  text-align: center;
-}
-
-nav{
-  display: inline-block;
-  width: 100%;
-}
-
-nav li:first-child a{
-  border-left: none;
-}
-
-nav a{
-  color: white;
-  text-decoration: none;
-  width: 82px;
-  margin-top: 1em;
-  margin-bottom: 1em;
-  display: inline-block;
-  border-left: 1px @grey solid;
-}
-
-nav li{
-  .column(3);
-  text-align: center;
-}
-
-h1 a {
-  font-family: @architectD;
-  text-decoration: none;
-  color: white;
-}
-
-section h2{
-  background-color: white;
- background-image: url('../img/border.png');
-  height: 35px;
-}
-
-input{
-  width: 100%;
-}
+}*/

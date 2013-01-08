@@ -79,7 +79,7 @@
 
         //Ajout de la class active
         if ($('.searchList a').length) {
-            var tabId = $(".searchList a").attr('rel');
+            var tabId = $('.searchList a').attr('rel');
             var sUrlSerie = $target.attr('class');
 
         }
@@ -93,7 +93,7 @@
             id:tabId
         }, $('div#' + tabId).find('h2').text(), tabId + '.html');
 
-        $('li.active, div.tab-pane.active').removeClass('active');
+        $('li.active, li.active').removeClass('active');
         $('a[rel="' + tabId + '"]').parent().addClass('active');
         $("div#" + tabId).addClass('active');
 
@@ -115,6 +115,11 @@
         //Enlève les anciens éléments
         $('.descriptionError p').remove();
         $('#serieDescription section').show();
+        $('#serieDescription').show();
+        $('#search').hide();
+        $('#myFavorit').hide();
+        $('#planning').hide();
+
         $serieTitle.empty();
         $serieDescription.empty();
         $serieGender.empty();
@@ -158,12 +163,10 @@
                                 dataType: 'jsonp',
                                 success: function(dataEpisode){
 
-                                    $('ol .'+seasons).append('<li>'+dataEpisode+'</li>');
+                                   // $('ol .'+seasons).append('<li>'+dataEpisode+'</li>');
                                 }
                             });
-
                         }
-
                     }
                     /* $('.addFavorit').on('click', function () {
                      addSerie(serie);
@@ -219,19 +222,19 @@
         //@TODO: boucle
 
         //Affiche les infos de ma séries favorite
-        $('.favoritList').append('<li><h3><a href="javascript:void(0);" rel="serieDescription" class="' + myFav[0].url + '">' + myFav[0].title + '</a></h3></li>');
-        $('.favoritList li').append('<p>Etat de la série: ' + myFav[0].status + '</p>');
+        $('.favoritList').append('<li><a href="javascript:void(0);" rel="serieDescription" class="' + myFav[0].url + '"><h3 class="' + myFav[0].url + '">' + myFav[0].title + '</h3></a></li>');
         var len = $.map(myFav[0].seasons,function (n, i) {
             return i;
         }).length;
 
-        $('.favoritList li').append('<p>Nombre de: ' + len + '</p>');
-        $('h3 a').on('click', listSerieClick);
+        $('.favoritList li a').append('<p class="' + myFav[0].url + '">Etat: ' + myFav[0].status + ' - Saisons: ' + len + '</p>');
+        $('.favoritList a').on('click', listSerieClick);
 
     };
 
 //JSONP uniquement pr qd on est en local
 //  });
+
     //Lorsqu'on clique sur les onglet du menu
     var menuClick = function (e) {
         e.preventDefault();
@@ -253,22 +256,29 @@
 
     //Affichage de l'onglet
     var switchTab = function (tabId) {
-        var $oSerieDescription = $('#serieDescription');
 
         //Enlève les anciens éléments
-        $('li.active, div.tab-pane.active').removeClass('active');
+        $('li.active, li.active').removeClass('active');
         $('a[rel="' + tabId + '"]').parent().addClass('active');
         $('div#' + tabId).addClass('active');
 
         //Si sur la page description
         if (tabId == 'serieDescription') {
+            $('#serieDescription').show();
+            $('#search').hide();
+            $('#myFavorit').hide();
+            $('#planning').hide();
             $('#serieDescription section').hide();
             $('.descriptionError p').remove()
             $('.descriptionError').append('<p>Il n\'y a pas de série sélectionnée. Faites d\'abord une recherche.</p>');
         }
 
         //Si sur la page des favoris
-        if (tabId == "myFavorit") {
+        if (tabId == 'myFavorit') {
+            $('#myFavorit').show();
+            $('#search').hide();
+            $('#serieDescription').hide();
+            $('#planning').hide();
 
             if (getJsonItem('favs_s') !== null) {
                 $('.favoritList li').remove();
@@ -283,7 +293,12 @@
         }
 
         //Si sur la page du planning
-        if (tabId == "planning") {
+        if (tabId == 'planning') {
+            $('#planning').show();
+            $('#search').hide();
+            $('#myFavorit').hide();
+            $('#serieDescription').hide();
+
             if (getJsonItem('favs_s') !== null) {
                 $('.planningError').remove();
                 $('.planningList li').remove();
@@ -293,6 +308,13 @@
                 $('.planningList li').remove();
                 $('.planningError').append('<p>Il n\'y a aucune série favorite sélectionnée.</p>');
             }
+        }
+
+        if(tabId == 'search'){
+            $('#search').show();
+            $('#serieDescription').hide();
+            $('#myFavorit').hide();
+            $('#planning').hide();
         }
     };
 
@@ -308,14 +330,14 @@
 
                 var oPlanning = dataPlanning.root.planning;
 
+
                 for (c in oPlanning) {
                     //Affichage du planning si le titre est dans mes favoris
                     if (oPlanning[c].show == myFavPlanning[0].title) {
+                        console.log(oPlanning[c]);
                         var date = new Date();
 
-                        $('.planningList').append('<li><p>' + oPlanning[c].show + '</p></li>');
-                        $('.planningList li').append('<p>' + oPlanning[c].number + '</p>');
-                        $('.planningList li').append('<p>' + date.toDateString(oPlanning[c].date) + '</p>');
+                        $('.planningList').append('<li><h3>' + oPlanning[c].show + '</h3><p class="date">' + date.toDateString(oPlanning[c].date) +'</p><p>' + oPlanning[c].number + ': ' + oPlanning[c].title + '</p></li>');
                     }
                     else {
                         //TODO
@@ -329,8 +351,12 @@
     //Load de routine
     $(function () {
 
+        $('#myFavorit').hide();
+        $('#planning').hide();
+        $('#serieDescription').hide();
+
         $(this).on('keypress', searchTest);
-        $('ul.nav-tabs li a').on('click', menuClick);
+        $('ul.nav li a').on('click', menuClick);
 
     });
 

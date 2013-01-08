@@ -4,9 +4,10 @@
     <meta charset="UTF-8"/>
     <title>API Betaseries</title>
 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <!--<link rel="stylesheet" href="./css/style.css"/>-->
     <link rel="stylesheet" href="./css/styles.css"/>
-    <link rel="stylesheet" type="text/css" href="./css/style.css" media="screen" />
     <link rel="stylesheet" type="text/css" href="./css/animation.css" media="screen" />
     <link rel="stylesheet" type="text/css" href="./css/fontello-codes.css" media="screen" />
     <link rel="stylesheet" type="text/css" href="./css/fontello-embedded.css" media="screen" />
@@ -24,13 +25,13 @@
     <![endif]-->
 </head>
 <body>
-<div class="content">
+<div class="container">
     <header>
         <h1><a href="#" title="Retour à la page d'accueil">Betaseries</a></h1>
         <nav>
             <ul class="nav">
                 <li class="active">
-                    <a href="javascript:void(0);" class="icon-check" rel="search" data-toggle="tab"></a>
+                    <a href="javascript:void(0);" class="icon-search" rel="search" data-toggle="tab"></a>
                 </li>
                 <li>
                     <a href="javascript:void(0);" rel="serieDescription" class="icon-video-1" data-toggle="tab"></a>
@@ -44,11 +45,11 @@
             </ul>
         </nav>
     </header>
-    <section>
+    <section class="content">
         <!-- RECHERCHE -->
         <div class="active" id="search">
             <h2>Recherche de série</h2>
-            <input type="search" name="Recherche" placeholder="Série à rechercher" id="searchSerie"/>
+            <input type="search" name="Recherche" placeholder="Série à rechercher" id="searchSerie" autocomplete="on"/>
             <section class="searchResult">
                 <h3>Résultat de recherches</h3>
 
@@ -107,6 +108,27 @@
             <div class="planningError"></div>
         </div>
     </section>
+    <footer>
+        <nav>
+            <ul class="nav">
+                <li class="active">
+                    <a href="javascript:void(0);" class="icon-search" rel="search" data-toggle="tab"></a>
+                </li>
+                <li>
+                    <a href="javascript:void(0);" rel="serieDescription" class="icon-video-1" data-toggle="tab"></a>
+                </li>
+                <li>
+                    <a href="javascript:void(0);" rel="myFavorit" data-toggle="tab" class="icon-heart-empty"></a>
+                </li>
+                <li>
+                    <a href="javascript:void(0);" rel="planning" class="icon-calendar" data-toggle="tab"></a>
+                </li>
+            </ul>
+        </nav>
+        <p>
+            Designed by Annabelle Buffart - January 2013
+        </p>
+    </footer>
 </div>
 </body>
 </html>
