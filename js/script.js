@@ -168,6 +168,7 @@
                             });
                         }
                     }
+
                     /* $('.addFavorit').on('click', function () {
                      addSerie(serie);
 
@@ -199,10 +200,13 @@
         callback(serie);
     };
 
-    //PLace la série dans le listing
+    //Place la série dans le listing
     var useLocalStorage = function (e) {
+
+        console.log($('button').attr('class'));
+
         show = e
-        // console.log(JSON.stringify(show));
+        console.log(JSON.stringify(show));
 
         var favs = [];
         favs[favs.length] = show;
