@@ -6,19 +6,15 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!--<link rel="stylesheet" href="./css/style.css"/>-->
     <link rel="stylesheet" href="./css/styles.css"/>
-    <link rel="stylesheet" type="text/css" href="./css/animation.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="./css/fontello-codes.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="./css/fontello-embedded.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="./css/fontello-ie7-codes.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="./css/fontello-ie7.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="./css/fontello.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="./css/animation.css" media="screen"/>
+    <link rel="stylesheet" type="text/css" href="./css/fontello-codes.css" media="screen"/>
+    <link rel="stylesheet" type="text/css" href="./css/fontello-embedded.css" media="screen"/>
+    <link rel="stylesheet" type="text/css" href="./css/fontello-ie7-codes.css" media="screen"/>
+    <link rel="stylesheet" type="text/css" href="./css/fontello-ie7.css" media="screen"/>
+    <link rel="stylesheet" type="text/css" href="./css/fontello.css" media="screen"/>
 
 
-    <script src="js/jquery.js"></script>
-    <script src="js/script.js"></script>
-    <!--<script src="js/jmobile.js"></script>-->
 
     <!--[if lt IE 9]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -29,43 +25,47 @@
     <header>
         <h1><a href="#" title="Retour à la page d'accueil">Betaseries</a></h1>
         <nav>
-            <ul class="nav">
-                <li class="active">
-                    <a href="javascript:void(0);" class="icon-search" rel="search" data-toggle="tab"></a>
+            <ul>
+                <li>
+                    <a href="javascript:void(0);" class="tab-header icon-search active" rel="search"></a>
                 </li>
                 <li>
-                    <a href="javascript:void(0);" rel="serieDescription" class="icon-video-1" data-toggle="tab"></a>
+                    <a href="javascript:void(0);" class="tab-header icon-video-1" rel="description"></a>
                 </li>
                 <li>
-                    <a href="javascript:void(0);" rel="myFavorit" data-toggle="tab" class="icon-heart-empty"></a>
+                    <a href="javascript:void(0);" class="tab-header icon-heart-empty" rel="favorites"></a>
                 </li>
                 <li>
-                    <a href="javascript:void(0);" rel="planning" class="icon-calendar" data-toggle="tab"></a>
+                    <a href="javascript:void(0);" class="tab-header icon-calendar" rel="planning"></a>
                 </li>
             </ul>
         </nav>
     </header>
+
     <section class="content">
         <!-- RECHERCHE -->
-        <div class="active" id="search">
+        <div class="tab" id="search">
             <h2>Recherche de série</h2>
-            <input type="search" name="Recherche" placeholder="Série à rechercher" id="searchSerie" autocomplete="on"/>
-            <section class="searchResult">
+
+            <form>
+                <input type="search" name="keyword" placeholder="Entre un titre de série" autocomplete="on"/>
+            </form>
+            <section class="main">
                 <h3>Résultat de recherches</h3>
-
-                <div class="searchError"></div>
-                <ul class="searchList"></ul>
+                <ul class="searchResults"></ul>
             </section>
-
+            <section class="msg"></section>
         </div>
 
         <!-- DESCRIPTION -->
-        <div id="serieDescription">
+        <div class="tab" id="description"> <!-- même id/class -->
             <h2>A propos de cette série</h2>
-            <section>
-                <img src="" alt="" title=""/>
+            <section class="main">
+                <img class="banner" src="" alt="" title=""/>
 
-                <h3 class="serieDescriptionTitle"></h3>
+                <h3 class="title"></h3>
+
+                <p class="favorite"><a href="#" rel=""></a></p>
 
                 <p class="description"></p>
 
@@ -75,53 +75,59 @@
 
                 <h3>Durée</h3>
 
-                <p class="timing"></p>
+                <p class="duration"></p>
 
                 <h3>Status</h3>
 
                 <p class="status"></p>
 
                 <h3>Saisons</h3>
-                <ol class="seasons"></ol>
-                <footer>
-                    <button class="addFavorit">Ajouter cette série à mes favoris</button>
-                </footer>
+                <ol class="seasons">
+                    <li>
+                        <h4></h4>
+                        <ol>
+                            <li></li>
+                        </ol>
+                    </li>
+                </ol>
             </section>
-            <div class="descriptionError"></div>
+            <section class="msg"></section>
+
         </div>
 
         <!-- FAVORIS -->
-        <div id="myFavorit">
+        <div class="tab" id="favorites">
             <h2>Mes séries</h2>
-            <section class="favoritSeries">
-                <ul class="favoritList"></ul>
+            <section class="main">
+                <ul class="fav-list"></ul>
             </section>
-            <div class="favoritError"></div>
+            <section class="msg"></section>
         </div>
 
         <!-- FAVORIS -->
-        <div id="planning">
+        <div class="tab" id="planning">
             <h2>Planning</h2>
-            <section class="planningSerie">
-                <ul class="planningList"></ul>
+            <section class="main">
+                <ul class="plan-list"></ul>
             </section>
-            <div class="planningError"></div>
+            <section class="msg"></section>
         </div>
     </section>
+
     <footer>
         <nav>
-            <ul class="nav">
-                <li class="active">
-                    <a href="javascript:void(0);" class="icon-search" rel="search" data-toggle="tab"></a>
+            <ul>
+                <li>
+                    <a href="javascript:void(0);" class="tab-footer icon-search" rel="search"></a>
                 </li>
                 <li>
-                    <a href="javascript:void(0);" rel="serieDescription" class="icon-video-1" data-toggle="tab"></a>
+                    <a href="javascript:void(0);" class="tab-footer icon-video-1" rel="description"></a>
                 </li>
                 <li>
-                    <a href="javascript:void(0);" rel="myFavorit" data-toggle="tab" class="icon-heart-empty"></a>
+                    <a href="javascript:void(0);" class="tab-footer icon-heart-empty" rel="favorites"></a>
                 </li>
                 <li>
-                    <a href="javascript:void(0);" rel="planning" class="icon-calendar" data-toggle="tab"></a>
+                    <a href="javascript:void(0);" class="tab-footer icon-calendar" rel="planning"></a>
                 </li>
             </ul>
         </nav>
@@ -130,5 +136,8 @@
         </p>
     </footer>
 </div>
+<script src="js/jquery.js"></script>
+<script src="js/mustache.js"></script>
+<script src="js/script.js"></script>
 </body>
 </html>

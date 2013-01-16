@@ -1,0 +1,46 @@
+{"root":{
+    "key":"bf7f369ce177",
+    "show":{
+        "title":"Fringe",
+        "id_thetvdb":"82066",
+        "url":"fringe",
+        "description":"Olivia Dunham, agent du FBI, le Dr Walter Bishop, un g\u00e9nie extravaguant et son fils Peter enqu\u00eatent sur des ph\u00e9nom\u00e8nes \u00e9tranges. Leurs d\u00e9couvertes les am\u00e8neront \u00e0 mener une lutte sans merci pour la sauvegarde de notre univers face \u00e0 la menace d'un univers parall\u00e8le.",
+        "duration":"60",
+        "network":"FOX",
+        "status":"Continuing",
+        "banner":"https:\/\/www.betaseries.com\/images\/fonds\/fringe.jpg",
+        "seasons":{
+            "1":{
+                "number":"1",
+                "episodes":20
+            },
+            "2":{
+                "number":"2",
+                "episodes":23
+            },
+            "3":{
+                "number":"3",
+                "episodes":22
+            },
+            "4":{
+                "number":"4",
+                "episodes":22
+            },
+            "5":{
+                "number":"5",
+                "episodes":13
+            }
+        },
+        "genres":{
+            "0":"Drama",
+            "1":"Science-Fiction"
+        },
+        "note":{
+            "members":1118,
+            "mean":4.54,
+            "self":null
+        }
+    },
+    "code":1,
+    "errors":{}
+}}
